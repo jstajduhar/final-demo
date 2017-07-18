@@ -43,4 +43,7 @@ END;
 
 ]]></metadata>
 </model>
+	<translator name="rest" type="ws">
+        	<property name="DefaultBinding" value="HTTP"/>
+    	</translator>
 </vdb>
