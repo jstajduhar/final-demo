@@ -4,7 +4,7 @@
 <property name="validationDateTime" value="Mon Jul 17 14:53:51 EDT 2017"/>
 <property name="validationVersion" value="8.12.4"/>
 <model name="WebSvc_source">
-<source connection-jndi-name="WebSvc_source_DS" name="WebSvc_source" translator-name="ws"/>
+<source connection-jndi-name="WebSvc_source_DS" name="WebSvc_source" translator-name="rest"/>
 <metadata type="DDL"><![CDATA[
 
 CREATE FOREIGN PROCEDURE invokeHttp (
