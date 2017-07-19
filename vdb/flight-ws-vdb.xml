@@ -10,12 +10,14 @@
             delay string PRIMARY KEY,
             iata varchar(50),
 	    state varchar(50)
+	    name varchar(100)
         ) AS SELECT  delay, iata, state 
            FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'airport/status/SFO?format=application/json', stream=>'TRUE')) AS f, 
-	            XMLTABLE('/root/AirportStatus' PASSING JSONTOXML('root', f.AirportStatus) COLUMNS 
+	            XMLTABLE('/AirportStatus' PASSING JSONTOXML('AirportStatus', f.result) COLUMNS 
 		             delay string PATH 'delay/text()', 
 		             iata string PATH 'IATA/text()',
-		             state string PATH 'state/text()') AS A;
+		             state string PATH 'state/text()',
+			     name string PATH 'name/text()') AS A;
            ]]>        
         </metadata>
     </model>
