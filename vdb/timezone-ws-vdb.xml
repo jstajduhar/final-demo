@@ -9,17 +9,17 @@
            CREATE  VIEW timezones (
             countryCode string PRIMARY KEY,
             countryName varchar(200),
-	          zoneName varchar(200),
+	    zoneName varchar(200),
             gmtOffset varchar(50),
             timestamp varchar(50)
-        ) AS SELECT  name, alpha2_code,alpha3_code 
+        ) AS SELECT  countryCode, countryName, zoneName, gmOffset, timestamp 
            FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'http://api.timezonedb.com/v2/list-time-zone?key=Q0B8OGIPT4H4&format=json', stream=>'TRUE')) AS f, 
-	            XMLTABLE('/zones' PASSING JSONTOXML('root', f.result) COLUMNS 
+	            XMLTABLE('/result/zones/zone' PASSING JSONTOXML('result', f.result) COLUMNS 
 		             countryCode string PATH 'countryCode/text()', 
 		             countryName string PATH 'countryName/text()',
 		             zoneName string PATH 'zoneName/text()',
-                 gmtOffset string PATH 'gmtOffset/text()',
-                 timestamp string PATH 'timestamp/text()') AS A;
+                 	     gmtOffset string PATH 'gmtOffset/text()',
+			     timestamp string PATH 'timestamp/text()') AS A;
            ]]>        
         </metadata>
     </model>
