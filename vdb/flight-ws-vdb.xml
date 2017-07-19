@@ -13,7 +13,7 @@
 	    name varchar(100)
         ) AS SELECT  delay, iata, state 
            FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'airport/status/SFO?format=application/json', stream=>'TRUE')) AS f, 
-	            XMLTABLE('/AirportStatus' PASSING JSONTOXML('AirportStatus', f.result) COLUMNS 
+	            XMLTABLE('/root/AirportStatus' PASSING JSONTOXML('AirportStatus', f.result) COLUMNS 
 		             delay string PATH 'delay/text()', 
 		             iata string PATH 'IATA/text()',
 		             state string PATH 'state/text()',
