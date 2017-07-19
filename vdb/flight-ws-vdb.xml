@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?> 
 <vdb name="flight-ws" version="1">
     <model name="ws">
-        <source name="webservice" translator-name="rest" connection-jndi-name="java:/flight-ws-DS"/>
+        <source name="webservice" translator-name="ws" connection-jndi-name="java:/flight-ws-DS"/>
     </model>
     
     <model name="flight" type="VIRTUAL">
