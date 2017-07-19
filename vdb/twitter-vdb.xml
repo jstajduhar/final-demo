@@ -11,7 +11,7 @@
             source varchar(50),
 	    text varchar(50)
         ) as SELECT tweet.* FROM  
-        (call twitter.invokeHTTP(endpoint=>'https://api.twitter.com/1.1/search/tweets.json?q=%40nihilist_arbys', action=>'GET')) w,   
+        (call twitter.invokeHTTP(endpoint=>'/1.1/search/tweets.json?q=%40nihilist_arbys', action=>'GET')) w,   
         XMLTABLE('/myxml/myxml' passing JSONTOXML('myxml', w.result) columns  
         created_on string PATH 'created_at',  
         source string PATH 'source',  
