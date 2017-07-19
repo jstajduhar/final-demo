@@ -4,7 +4,7 @@
     <model name="twitter">  
         <source name="twitter" translator-name="ws" connection-jndi-name="java:/twitterDS"/>  
     </model>  
-    <model name="twitter">  
+    <model name="other">  
         select tweet.* from  
         (call twitter.invokeHTTP(endpoint=>'https://api.twitter.com/1.1/statuses/user_timeline.json', action=>'GET')) w,   
         XMLTABLE('/myxml/myxml' passing JSONTOXML('myxml', w.result) columns  
