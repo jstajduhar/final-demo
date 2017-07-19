@@ -4,9 +4,9 @@
     <model name="twitter">  
         <source name="twitter" translator-name="ws" connection-jndi-name="java:/twitterDS"/>  
     </model>  
-    <model name="tweets" type="VIRTUAL">
+    <model name="bird" type="VIRTUAL">
         <metadata type="DDL"><![CDATA[
-           CREATE  VIEW  (
+           CREATE  VIEW tweets (
             created_on string PRIMARY KEY,
             source varchar(50),
 	    text varchar(50)
