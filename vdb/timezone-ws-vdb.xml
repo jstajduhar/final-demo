@@ -13,7 +13,7 @@
             gmtOffset varchar(50),
             timestamp varchar(50)
         ) AS SELECT  name, alpha2_code,alpha3_code 
-           FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'/v2/list-time-zone?key=Q0B8OGIPT4H4&format=json', stream=>'TRUE')) AS f, 
+           FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'http://api.timezonedb.com/v2/list-time-zone?key=Q0B8OGIPT4H4&format=json', stream=>'TRUE')) AS f, 
 	            XMLTABLE('/root/zones' PASSING JSONTOXML('root', f.result) COLUMNS 
 		             countryCode string PATH 'countryCode/text()', 
 		             countryName string PATH 'countryName/text()',
