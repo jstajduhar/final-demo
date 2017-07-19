@@ -4,6 +4,21 @@
     <model name="twitter">  
         <source name="twitter" translator-name="ws" connection-jndi-name="java:/twitterDS"/>  
     </model>  
+    <model name="country" type="VIRTUAL">
+        <metadata type="DDL"><![CDATA[
+           CREATE  VIEW Countries (
+            name string PRIMARY KEY,
+            alpha2_code varchar(50),
+	    alpha3_code varchar(50)
+        ) as select tweet.* from  
+        (call twitter.invokeHTTP(endpoint=>'https://api.twitter.com/1.1/statuses/user_timeline.json', action=>'GET')) w,   
+        XMLTABLE('/myxml/myxml' passing JSONTOXML('myxml', w.result) columns  
+        created_on string PATH 'created_at',  
+        source string PATH 'source',  
+        text string PATH 'text') tweet; 
+           ]]>        
+        </metadata>
+    </model>
     <model name="twitter2">  
         select tweet.* from  
         (call twitter.invokeHTTP(endpoint=>'https://api.twitter.com/1.1/statuses/user_timeline.json', action=>'GET')) w,   
