@@ -7,13 +7,13 @@
     <model name="flight" type="VIRTUAL">
         <metadata type="DDL"><![CDATA[
            CREATE  VIEW Flights (
-            delay boolean PRIMARY KEY,
+            delay string PRIMARY KEY,
             iata varchar(50),
 	    state varchar(50)
         ) AS SELECT  delay, iata, state 
-           FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'/airport/status/SFO?format=application/json', stream=>'TRUE')) AS f, 
+           FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'/airport/status/SFO', stream=>'TRUE')) AS f, 
 	            XMLTABLE('/root/RestResponse/result' PASSING JSONTOXML('root', f.result) COLUMNS 
-		             delay boolean PATH 'delay/text()', 
+		             delay string PATH 'delay/text()', 
 		             iata string PATH 'IATA/text()',
 		             state string PATH 'state/text()') AS A;
            ]]>        
