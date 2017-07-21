@@ -38,7 +38,8 @@ BEGIN
 	SELECT 
 	A.customernumber AS customernumber, A.creditlimit AS creditlimit, A.creditscore AS creditscore
 FROM
-	(EXEC WebSvc_source.invokeHttp(action=>'GET',endpoint=>VARIABLES.qp,stream=>'TRUE')) AS f, XMLTABLE('/customers/customer' PASSING XMLPARSE(DOCUMENT f.result) COLUMNS customernumber string PATH 'customernumber/text()', creditlimit string PATH 'creditlimit/text()', creditscore string PATH 'creditscore/text()') AS A;
+	(EXEC WebSvc_source.invokeHttp(action=>'GET',endpoint=>'http://api.timezonedb.com/v2/list-time-zone?key=Q0B8OGIPT4H4&format=json',stream=>'TRUE')) AS f, XMLTABLE('/customers/customer' PASSING XMLPARSE(DOCUMENT f.result) COLUMNS customernumber string PATH 'customernumber/text()', creditlimit string PATH 'creditlimit/text()', creditscore string PATH 'creditscore/text()') AS A;
+	#(EXEC WebSvc_source.invokeHttp(action=>'GET',endpoint=>VARIABLES.qp,stream=>'TRUE')) AS f, XMLTABLE('/customers/customer' PASSING XMLPARSE(DOCUMENT f.result) COLUMNS customernumber string PATH 'customernumber/text()', creditlimit string PATH 'creditlimit/text()', creditscore string PATH 'creditscore/text()') AS A;
 END;
 
 ]]></metadata>
