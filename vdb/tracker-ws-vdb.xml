@@ -11,7 +11,7 @@
 			transactionIdentifier varchar(200),
             transactionIdentifierType varchar(200),
 			organization varchar(200)
-        ) AS SELECT  name, alpha2_code,alpha3_code 
+        ) AS SELECT  transactionId,transactionIdentifier,transactionIdentifierType,organization
            FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'/tx/CanonicalTransactionData?tid=1', stream=>'TRUE')) AS f, 
 	            XMLTABLE('/root/RestResponse/result' PASSING JSONTOXML('root', f.result) COLUMNS 
 		             transactionId string PATH 'transactionId/text()', 
