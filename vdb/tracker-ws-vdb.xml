@@ -4,7 +4,7 @@
         <source name="webservice" translator-name="rest" connection-jndi-name="java:/tracker-ws-DS"/>
     </model>
     
-    <model name="country" type="VIRTUAL">
+    <model name="transaction" type="VIRTUAL">
         <metadata type="DDL"><![CDATA[
            CREATE  VIEW Transactions (
             transactionId string PRIMARY KEY,
