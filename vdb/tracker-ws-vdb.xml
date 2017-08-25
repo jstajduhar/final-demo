@@ -13,7 +13,7 @@
 			organization varchar(200)
         ) AS SELECT  transactionId,transactionIdentifier,transactionIdentifierType,organization
            FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'/tx/CanonicalTransactionData?tid=1', stream=>'TRUE')) AS f, 
-	            XMLTABLE('/root/RestResponse/result' PASSING JSONTOXML('root', f.result) COLUMNS 
+	            XMLTABLE('/root' PASSING JSONTOXML('root', f.result) COLUMNS 
 		             transactionId string PATH 'transactionId/text()', 
 		             transactionIdentifier string PATH 'transactionIdentifier/text()',
 					 transactionIdentifierType string PATH 'transactionIdentifierType/text()',
