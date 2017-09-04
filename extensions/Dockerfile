@@ -5,6 +5,7 @@ LABEL Name="final-demo" \
 
 COPY files /extensions/
 #COPY modules /extensions/modules/
+#COPY flight-data.txt /extensions/files/data/
 COPY install.sh /extensions/
 COPY install.properties /extensions/
 
