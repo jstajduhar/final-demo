@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vdb name="flightdata-file" version="1">
+
+	<model name="ws">
+        <source name="webservice" translator-name="rest" connection-jndi-name="java:/tracker-ws-DS"/>
+    </model>
+    
+    <model name="transaction" type="VIRTUAL">
+        <metadata type="DDL"><![CDATA[
+           CREATE  VIEW Transactions (
+            transactionId string PRIMARY KEY,
+			transactionIdentifier varchar(200),
+            transactionIdentifierType varchar(200),
+			organization varchar(200)
+        ) AS SELECT  transactionId,transactionIdentifier,transactionIdentifierType,organization
+           FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'/tx/CanonicalTransactionData?tid=1', stream=>'TRUE')) AS f, 
+	            XMLTABLE('/root' PASSING JSONTOXML('root', f.result) COLUMNS 
+		             transactionId string PATH 'transactionId/text()', 
+		             transactionIdentifier string PATH 'transactionIdentifier/text()',
+					 transactionIdentifierType string PATH 'transactionIdentifierType/text()',
+		             organization string PATH 'organization/text()') AS A;
+           ]]>        
+        </metadata>
+    </model>
+
+    <translator name="rest" type="ws">
+        <property name="DefaultBinding" value="HTTP"/>
+    </translator>	
+
+
+
+
+    <model name="file">
+        <source name="flight-text-connector" translator-name="file" connection-jndi-name="java:/flightdata-file-DS"/>
+    </model>
+    <model name="flightdata" type="VIRTUAL">
+        <metadata type="DDL"><![CDATA[
+        CREATE VIEW FlightData (
+            Id string PRIMARY KEY,
+            Airline string,
+	          FlightNo string,
+			  PassportNo string,
+	          PassportCountry string,
+            DepartLoc string,
+            ArriveLoc string,
+            TravelDate string,
+			Name string
+        ) AS  
+          SELECT SP.Id, SP.Airline, SP.FlightNo, SP.PassportNo, SP.PassportCountry, SP.DepartLoc, SP.ArriveLoc, SP.TravelDate, SP.Name
+          FROM (EXEC file.getTextFiles('flight-data.txt')) AS f, 
+            TEXTTABLE(f.file COLUMNS Id string, Airline string, FlightNo string, PassportNo string, PassportCountry string, DepartLoc string, ArriveLoc string, TravelDate string, Name string HEADER) AS SP;   
+        ]]> </metadata>
+    </model>
+	
+    <model name="allpersondata" type="VIRTUAL">
+    <property name="imports" value="persondata"/>
+    <metadata type="DDL"><![CDATA[
+      CREATE VIEW PERSON (
+	    transactionId string,
+            organization string,
+			documentId string,
+	    Id string PRIMARY KEY,
+            Airline string,
+	    FlightNo string,
+	    DepartLoc string,
+            ArriveLoc string,
+            TravelDate string
+      ) 
+      AS
+      SELECT P.transactionId,
+            P.organization,
+			P.documentId,
+	    T.Id,
+		T.PassportNo,
+		T.PassportCountry,
+            T.Airline,
+	    T.FlightNo,
+	    T.DepartLoc,
+            T.ArriveLoc,
+            T.TravelDate,
+			T.Name
+      FROM transaction.TRANSACTIONS P FULL OUTER JOIN flightdata.FLIGHTDATA T 
+      WHERE P.documentId = T.PassportNo;
+    ]]></metadata>
+  </model>
+</vdb>
