@@ -1,0 +1,18 @@
+Id,Airline,FlightNo,PassportNo,PassportCountry,DepartLoc,ArriveLoc,TravelDate,Name
+1,United,123,P123456789,GER,GBR,GER,7-13-2013,Greg Zarroli
+2,United,673,P123456789,GER,GER,GBR,8-13-2013,Greg Zarroli
+3,American Airlines,189,P123456789,GER,GBR,SYR,3-23-2014,Steve Johnson
+4,Birtish Airways,732,P123456789,GER,SYR,FRA,9-27-2014,Steve Johnson
+5,United,428,P123456789,GER,NLD,USA,10-13-2014,Greg Zarroli
+6,Birtish Airways,173,P123456789,GER,MEX,GBR,2-10-2015,Greg Zarroli
+7,Birtish Airways,199,P123456789,GER,GBR,GER,1-13-2016,Greg Zarroli
+8,American Airlines,683,P123456789,GER,GER,GBR,2-22-2016,Greg Zarroli
+9,United,773,P987654321,USA,GBR,GER,7-17-2016,Greg Zarroli
+10,Birtish Airways,567,P987654321,USA,USA,JPN,6-26-2014,Jane Jones
+11,Birtish Airways,765,P987654321,USA,JPN,USA,7-13-2014,Jane Jones
+12,Birtish Airways,567,P987654321,USA,USA,JPN,6-16-2015,Jane Jones
+13,Birtish Airways,765,P987654321,USA,JPN,USA,7-13-2015,Jane Jones
+14,Birtish Airways,567,P987654321,USA,USA,JPN,6-26-2016,Jane Jones
+15,Birtish Airways,765,P987654321,USA,JPN,USA,7-13-2016,Jane Jones
+16,United,123,P321654987,GBR,USA,CAN,7-13-2012,Greg Zarroli
+17,United,673,P321654987,GBR,CAN,USA,8-13-2012,Greg Zarroli
