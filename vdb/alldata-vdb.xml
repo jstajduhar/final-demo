@@ -78,7 +78,7 @@
             TravelDate string
       ) 
       AS
-      SELECT I.Id,
+      SELECT T.Id,
 			P.transactionId,
 			P.personGivenName,
 			P.personSurName,
