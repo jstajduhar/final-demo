@@ -105,6 +105,5 @@
 	
   <translator name="rest" type="ws">
        <property name="DefaultBinding" value="HTTP"/>
-  </translator>	
-	
+  </translator>
 </vdb>
