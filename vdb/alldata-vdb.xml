@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <vdb name="flightdata-file" version="1">
-　
 	<model name="ws">
-        <source name="webservice" translator-name="rest" connection-jndi-name="java:/tracker-ws-DS"/>
-    </model>
-    
-    <model name="transaction" type="VIRTUAL">
-        <metadata type="DDL"><![CDATA[
+		<source name="webservice" translator-name="rest" connection-jndi-name="java:/tracker-ws-DS"/>
+	</model>
+	<model name="transaction" type="VIRTUAL">
+		<metadata type="DDL"><![CDATA[
            CREATE  VIEW Transactions (
             transactionId string PRIMARY KEY,
 			transactionIdentifier varchar(200),
@@ -34,15 +32,14 @@
 					 personGivenName string PATH 'personGivenName/text()',
 					 personSurName string PATH 'personSurName/text()',
 					 personSexCode string PATH 'personSexCode/text()') AS A;
-           ]]>        
-        </metadata>
-    </model>
-　
-    <model name="file">
-        <source name="flight-text-connector" translator-name="file" connection-jndi-name="java:/flightdata-file-DS"/>
-    </model>
-    <model name="flightdata" type="VIRTUAL">
-        <metadata type="DDL"><![CDATA[
+           ]]>
+		</metadata>
+	</model>
+	<model name="file">
+		<source name="flight-text-connector" translator-name="file" connection-jndi-name="java:/flightdata-file-DS"/>
+	</model>
+	<model name="flightdata" type="VIRTUAL">
+		<metadata type="DDL"><![CDATA[
         CREATE VIEW FlightData (
             Id string PRIMARY KEY,
             Airline string,
@@ -57,12 +54,11 @@
           SELECT SP.Id, SP.Airline, SP.FlightNo, SP.PassportNo, SP.PassportCountry, SP.DepartLoc, SP.ArriveLoc, SP.TravelDate, SP.Name
           FROM (EXEC file.getTextFiles('flight-data.txt')) AS f, 
             TEXTTABLE(f.file COLUMNS Id string, Airline string, FlightNo string, PassportNo string, PassportCountry string, DepartLoc string, ArriveLoc string, TravelDate string, Name string HEADER) AS SP;   
-        ]]> </metadata>
-    </model>
-	
-    <model name="allpersondata" type="VIRTUAL">
-    <property name="imports" value="flightdata"/>
-    <metadata type="DDL"><![CDATA[
+        ]]></metadata>
+	</model>
+	<model name="allpersondata" type="VIRTUAL">
+		<property name="imports" value="flightdata"/>
+		<metadata type="DDL"><![CDATA[
       CREATE VIEW PERSON (
 			Id string PRIMARY KEY,
 			TransactionId string,
@@ -101,9 +97,8 @@
       FROM transaction.TRANSACTIONS P LEFT OUTER JOIN flightdata.FLIGHTDATA T 
       WHERE P.documentId = T.PassportNo and P.documentType = 'P';
     ]]></metadata>
-  </model>
-	
-  <translator name="rest" type="ws">
-       <property name="DefaultBinding" value="HTTP"/>
-  </translator>
+	</model>
+	<translator name="rest" type="ws">
+		<property name="DefaultBinding" value="HTTP"/>
+	</translator>
 </vdb>
