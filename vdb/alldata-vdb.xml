@@ -61,7 +61,7 @@
     </model>
 	
     <model name="allpersondata" type="VIRTUAL">
-    <property name="imports" value="persondata"/>
+    <property name="imports" value="flightdata"/>
     <metadata type="DDL"><![CDATA[
       CREATE VIEW PERSON (
 			Id string PRIMARY KEY,
