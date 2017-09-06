@@ -9,3 +9,5 @@ COPY files /extensions/
 COPY install.sh /extensions/
 COPY install.properties /extensions/
 
+COPY files/data/flight-data.txt /home/jboss/source/extensions/extras/data/
+
