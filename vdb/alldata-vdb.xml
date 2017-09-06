@@ -38,13 +38,6 @@
         </metadata>
     </model>
 　
-    <translator name="rest" type="ws">
-        <property name="DefaultBinding" value="HTTP"/>
-    </translator>	
-　
-　
-　
-　
     <model name="file">
         <source name="flight-text-connector" translator-name="file" connection-jndi-name="java:/flightdata-file-DS"/>
     </model>
@@ -109,4 +102,9 @@
       WHERE P.documentId = T.PassportNo and P.documentType = 'P';
     ]]></metadata>
   </model>
+	
+  <translator name="rest" type="ws">
+       <property name="DefaultBinding" value="HTTP"/>
+  </translator>	
+	
 </vdb>
