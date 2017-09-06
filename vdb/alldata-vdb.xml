@@ -21,7 +21,7 @@
 			personSexCode varchar(200)
         ) AS SELECT  transactionId,transactionIdentifier,transactionIdentifierType,documentID,documentType,documentCountryISO3166Alpha3Code,
 						personBirthDate,personCitizenshipISO3166Alpha3Code,personGivenName,personSurName,personSexCode
-           FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'/tx/CanonicalTransactionList', stream=>'TRUE')) AS f, 
+           FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'/tx/CanonicalTransactionData?tid=1', stream=>'TRUE')) AS f, 
 	            XMLTABLE('/root' PASSING JSONTOXML('root', f.result) COLUMNS 
 		             transactionId string PATH 'transactionId/text()', 
 		             transactionIdentifier string PATH 'transactionIdentifier/text()',
