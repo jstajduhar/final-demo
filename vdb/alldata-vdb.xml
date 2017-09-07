@@ -7,31 +7,25 @@
 		<metadata type="DDL"><![CDATA[
            CREATE  VIEW Transactions (
             transactionId string PRIMARY KEY,
-			transactionIdentifier varchar(200),
-            transactionIdentifierType varchar(200),
 			documentID varchar(200),
 			documentType varchar(200),
 			documentCountryISO3166Alpha3Code varchar(200),
 			personBirthDate varchar(200),
 			personCitizenshipISO3166Alpha3Code varchar(200),
 			personGivenName varchar(200),
-			personSurName varchar(200),
-			personSexCode varchar(200)
+			personSurName varchar(200)
         ) AS SELECT  transactionId,transactionIdentifier,transactionIdentifierType,documentID,documentType,documentCountryISO3166Alpha3Code,
 						personBirthDate,personCitizenshipISO3166Alpha3Code,personGivenName,personSurName,personSexCode
            FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'/tx/CanonicalTransactionData?tid=1', stream=>'TRUE')) AS f, 
 	            XMLTABLE('/root' PASSING JSONTOXML('root', f.result) COLUMNS 
 		             transactionId string PATH 'transactionId/text()', 
-		             transactionIdentifier string PATH 'transactionIdentifier/text()',
-					 transactionIdentifierType string PATH 'transactionIdentifierType/text()',
-					 documentID string PATH 'documentID/text()',
+		             documentID string PATH 'documentID/text()',
 					 documentType string PATH 'documentType/text()',
 					 documentCountryISO3166Alpha3Code string PATH 'documentCountryISO3166Alpha3Code/text()',
 					 personBirthDate string PATH 'personBirthDate/text()',
 					 personCitizenshipISO3166Alpha3Code string PATH 'personCitizenshipISO3166Alpha3Code/text()',
 					 personGivenName string PATH 'personGivenName/text()',
-					 personSurName string PATH 'personSurName/text()',
-					 personSexCode string PATH 'personSexCode/text()') AS A;
+					 personSurName string PATH 'personSurName/text()') AS A;
            ]]>
 		</metadata>
 	</model>
@@ -67,7 +61,6 @@
 			FullName string,
 			Citizenship string,
 			DateOfBirth string,
-			Gender string,
             PassportNumber string,
 			PassportCountry1 string,
 			PassportCountry2 string,
@@ -85,7 +78,6 @@
 			T.Name,
 			P.personCitizenshipISO3166Alpha3Code,
 			P.personBirthDate,
-			P.personSexCode,
 			P.documentId,
 			P.documentCountryISO3166Alpha3Code,
 			T.PassportCountry,
