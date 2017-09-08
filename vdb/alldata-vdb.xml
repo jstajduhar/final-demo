@@ -18,7 +18,7 @@
 						personBirthDate,personCitizenshipISO3166Alpha3Code,personGivenName,personSurName
            FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'/tx/CanonicalTransactionList', stream=>'TRUE')) AS f, 
 	            XMLTABLE('/root/canonicalTransactionList' PASSING JSONTOXML('root', f.result) COLUMNS 
-		             transaction_id string PATH 'transactionId/text()', 
+		             transactionId string PATH 'transaction_id/text()', 
 		             documentID string PATH 'documentID/text()',
 					 documentType string PATH 'documentType/text()',
 					 documentCountryISO3166Alpha3Code string PATH 'documentCountryISO3166Alpha3Code/text()',
