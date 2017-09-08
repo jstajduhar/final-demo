@@ -14,8 +14,8 @@
 			personCitizenshipISO3166Alpha3Code varchar(200),
 			personGivenName varchar(200),
 			personSurName varchar(200)
-        ) AS SELECT  transactionId,transactionIdentifier,transactionIdentifierType,documentID,documentType,documentCountryISO3166Alpha3Code,
-						personBirthDate,personCitizenshipISO3166Alpha3Code,personGivenName,personSurName,personSexCode
+        ) AS SELECT  transactionId,documentID,documentType,documentCountryISO3166Alpha3Code,
+						personBirthDate,personCitizenshipISO3166Alpha3Code,personGivenName,personSurName
            FROM (EXEC ws.invokeHttp(action=>'GET', endpoint=>'/tx/CanonicalTransactionList', stream=>'TRUE')) AS f, 
 	            XMLTABLE('/root/canonicalTransactionList' PASSING JSONTOXML('root', f.result) COLUMNS 
 		             transactionId string PATH 'transactionId/text()', 
