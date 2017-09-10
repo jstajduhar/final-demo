@@ -71,7 +71,7 @@
             TravelDate string
       ) 
       AS
-      SELECT T.Id,
+      SELECT P.transactionId + T.Id,
 			P.transactionId,
 			P.personGivenName,
 			P.personSurName,
@@ -86,7 +86,7 @@
 			T.DepartLoc,
             T.ArriveLoc,
             T.TravelDate
-      FROM flightdata.FLIGHTDATA T LEFT OUTER JOIN transaction.TRANSACTIONS P 
+FROM transaction.TRANSACTIONS P LEFT OUTER JOIN flightdata.FLIGHTDATA T
       ON P.documentId = T.PassportNo;
     ]]></metadata>
 	</model>
