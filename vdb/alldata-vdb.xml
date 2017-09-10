@@ -71,7 +71,7 @@
             TravelDate string
       ) 
       AS
-      SELECT P.transactionId + T.Id,
+      SELECT P.transactionId || T.Id,
 			P.transactionId,
 			P.personGivenName,
 			P.personSurName,
