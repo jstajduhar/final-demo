@@ -86,8 +86,8 @@
 			T.DepartLoc,
             T.ArriveLoc,
             T.TravelDate
-FROM transaction.TRANSACTIONS P LEFT OUTER JOIN flightdata.FLIGHTDATA T
-      ON P.documentId = T.PassportNo;
+FROM transaction.TRANSACTIONS P, flightdata.FLIGHTDATA T
+      WHERE P.documentId = T.PassportNo;
     ]]></metadata>
 	</model>
 	<translator name="rest" type="ws">
